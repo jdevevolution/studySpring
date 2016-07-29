@@ -3,6 +3,9 @@ package springbook.user.domain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import springbook.user.dao.DConnectionMaker;
+import springbook.user.dao.UserDao;
+
 @Configuration
 public class CountingDaoFactory {
 	@Bean

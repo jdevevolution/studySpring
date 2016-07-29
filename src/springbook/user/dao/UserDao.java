@@ -1,11 +1,15 @@
-package springbook.user.domain;
+package springbook.user.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+import springbook.user.domain.ConnectionMaker;
+import springbook.user.domain.User;
 
 public class UserDao {
 	private ConnectionMaker connectionMaker;
@@ -15,7 +19,8 @@ public class UserDao {
 	public UserDao(){
 		/*DaoFactory daoFactory = new DaoFactory();
 		this.connectionMaker = daoFactory.connectionMaker();*/
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 		this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
 	}
 	

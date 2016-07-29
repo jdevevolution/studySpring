@@ -1,9 +1,13 @@
-package springbook.user.domain;
+package springbook.user.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Configurable;
+
+import springbook.user.domain.ConnectionMaker;
+@Configurable
 public class DConnectionMaker implements ConnectionMaker {
 
 	@Override

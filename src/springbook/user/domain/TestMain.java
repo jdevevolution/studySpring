@@ -2,6 +2,9 @@ package springbook.user.domain;
 
 import java.sql.SQLException;
 
+import springbook.user.dao.DConnectionMaker;
+import springbook.user.dao.UserDao;
+
 public class TestMain {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		ConnectionMaker connectionMaker = new DConnectionMaker();

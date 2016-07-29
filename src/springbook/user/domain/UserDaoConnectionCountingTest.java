@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import springbook.user.dao.UserDao;
+
 public class UserDaoConnectionCountingTest {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
