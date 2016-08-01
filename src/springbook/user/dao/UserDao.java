@@ -20,7 +20,7 @@ public class UserDao {
 		/*DaoFactory daoFactory = new DaoFactory();
 		this.connectionMaker = daoFactory.connectionMaker();*/
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new GenericXmlApplicationContext("springbook/setting/applicationContext.xml");
 		this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
 	}
 	
