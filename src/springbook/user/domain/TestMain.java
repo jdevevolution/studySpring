@@ -8,7 +8,7 @@ import springbook.user.dao.UserDao;
 public class TestMain {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		ConnectionMaker connectionMaker = new DConnectionMaker();
-		UserDao dao = new UserDao(connectionMaker);
+		UserDao dao = new UserDao();
 		
 		User user = new User();
 		user.setId("whiteship");

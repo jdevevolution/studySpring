@@ -11,10 +11,8 @@ public class UserDaoTest {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 //		ConnectionMaker connectionMaker = new DConnectionMaker();
-		System.out.println(1);
 		ApplicationContext context = new GenericXmlApplicationContext("springbook/setting/applicationContext.xml");
-		System.out.println(2);
-		/*UserDao dao = (UserDao)context.getBean("userDao");
+		UserDao dao = (UserDao)context.getBean("userDao");
 
 		User user = new User();
 		user.setId("whiteship");
@@ -28,7 +26,7 @@ public class UserDaoTest {
 		User user2 = dao.get(user.getId());
 		System.out.println(user2.getName());
 		System.out.println(user2.getPassword());
-		System.out.println(user2.getId()+" 조회 성공");*/
+		System.out.println(user2.getId()+" 조회 성공");
 	}
 
 }

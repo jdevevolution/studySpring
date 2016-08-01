@@ -5,35 +5,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
+import javax.sql.DataSource;
 
-import springbook.user.domain.ConnectionMaker;
 import springbook.user.domain.User;
 
 public class UserDao {
-	private ConnectionMaker connectionMaker;
+//	private ConnectionMaker connectionMaker;
 	private Connection c;
 	private User user;
+	private DataSource dataSource;
 	
 	public UserDao(){
 		/*DaoFactory daoFactory = new DaoFactory();
-		this.connectionMaker = daoFactory.connectionMaker();*/
+		this.connectionMaker = daoFactory.connectionMaker();
 //		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 		ApplicationContext context = new GenericXmlApplicationContext("springbook/setting/applicationContext.xml");
-		this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);
+		this.connectionMaker = context.getBean("connectionMaker", ConnectionMaker.class);*/
 	}
 	
-	public UserDao(ConnectionMaker connectionMaker){
-		this.connectionMaker = connectionMaker;
+	public UserDao(DataSource dataSource){
+		this.dataSource = dataSource;
 	}
 	
-	public void setConnectionMaker(ConnectionMaker connectionMaker){
-		this.connectionMaker = connectionMaker;
+	public void setdataSource(DataSource dataSource){
+		this.dataSource = dataSource;
 	}
 	
-	public void add(User user) throws ClassNotFoundException, SQLException{
-		Connection c = connectionMaker.makeConnection();
+	public void add(User user) throws SQLException{
+		Connection c = dataSource.getConnection();
 		
 		PreparedStatement ps = c.prepareStatement("insert into users (id, name, password) values(?,?,?)");
 		
@@ -47,8 +46,8 @@ public class UserDao {
 		c.close();
 	}
 	
-	public User get(String id) throws ClassNotFoundException, SQLException{
-		this.c = connectionMaker.makeConnection();
+	public User get(String id) throws SQLException{
+		this.c = dataSource.getConnection();
 
 		PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
 		
