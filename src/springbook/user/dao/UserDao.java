@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import springbook.user.domain.User;
 
 public class UserDao {
@@ -32,7 +34,7 @@ public class UserDao {
 	}
 	
 	public void add(User user) throws SQLException{
-		Connection c = dataSource.getConnection();
+		this.c = dataSource.getConnection();
 		
 		PreparedStatement ps = c.prepareStatement("insert into users (id, name, password) values(?,?,?)");
 		
@@ -55,16 +57,51 @@ public class UserDao {
 		
 		ResultSet rs = ps.executeQuery();
 		
-		rs.next();
-		this.user = new User();
-		this.user.setId(rs.getString("id"));
-		this.user.setName(rs.getString("name"));
-		this.user.setPassword(rs.getString("password"));
+		User user = null;
+		
+		while(rs.next()){
+			user = new User();
+			user.setId(rs.getString("id"));
+			user.setName(rs.getString("name"));
+			user.setPassword(rs.getString("password"));
+		}
 		
 		rs.close();
 		ps.close();
 		c.close();
 		
+		if(user == null) throw new EmptyResultDataAccessException(1);
+		
 		return this.user;
+	}
+	
+	public void deleteAll() throws SQLException{
+		this.c = dataSource.getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("delete from users");
+		
+		ps.executeUpdate();
+		
+		ps.close();
+		c.close();
+	}
+	
+	public int getCount() throws SQLException{
+		int count = 0;
+
+		this.c = dataSource.getConnection();
+		
+		PreparedStatement ps = c.prepareStatement("select count(1) from users");
+		
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+		count = rs.getInt(1);
+		
+		rs.close();
+		ps.close();
+		c.close();
+		
+		return count;
 	}
 }

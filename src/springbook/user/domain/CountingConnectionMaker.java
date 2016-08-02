@@ -16,7 +16,6 @@ public class CountingConnectionMaker implements ConnectionMaker {
 	public CountingConnectionMaker(ConnectionMaker realConnectionMaker){
 		this.realConnectionMaker = realConnectionMaker;
 	}
-
 	
 	public int getCounter(){
 		return this.counter;
